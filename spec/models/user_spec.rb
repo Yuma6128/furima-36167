@@ -12,7 +12,13 @@ describe 'ユーザーの新規登録' do
   end
 end
   context '新規登録できないとき' do
-  it 'メールが空では登録できない。' do
+    it 'ニックネームが空では登録できない。' do
+      @user.nickname = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Nickname can't be blank")
+  end
+  
+    it 'メールが空では登録できない。' do
     @user.email = ''
     @user.valid?
     expect(@user.errors.full_messages).to include("Email can't be blank")
@@ -65,6 +71,26 @@ it 'emailに@が含まれていない場合登録できない' do
     @user.valid?
     expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
   end
+  it 'お名前（姓）が空だと登録できない' do
+    @user.last_name = ''
+    @user.valid?
+    expect(@user.errors.full_messages).to include("Last name can't be blank")
+  end
+  it 'お名前（名）が空だと登録できない' do
+    @user.first_name = ''
+    @user.valid?
+    expect(@user.errors.full_messages).to include("First name can't be blank")
+  end
+  it 'お名前（姓カナ）が空だと登録できない' do
+    @user.last_name_kana = ''
+    @user.valid?
+    expect(@user.errors.full_messages).to include("Last name kana can't be blank")
+  end
+  it 'お名前（名カナ）が空だと登録できない' do
+    @user.first_name_kana = ''
+    @user.valid?
+    expect(@user.errors.full_messages).to include("First name kana can't be blank")
+  end
   it 'お名前（姓）が半角だと登録できない' do
     @user.last_name = 'test'
     @user.valid?
@@ -94,6 +120,12 @@ it 'emailに@が含まれていない場合登録できない' do
     @user.first_name_kana = '太郎'
     @user.valid?
     expect(@user.errors.full_messages).to include("First name kana is invalid")
+  end
+
+  it '生年月日が空だと登録できない' do
+    @user.birthday = ''
+    @user.valid?
+    expect(@user.errors.full_messages).to include("Birthday can't be blank")
   end
   end
   end
