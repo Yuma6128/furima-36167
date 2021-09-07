@@ -54,8 +54,8 @@ it 'emailに@が含まれていない場合登録できない' do
     expect(@user.errors.full_messages).to include("Password is invalid")
   end
   it 'passwordが5文字以下だと登録できない' do
-    @user.password = 'Test12'
-    @user.password_confirmation = 'Test12'
+    @user.password = 'Test1'
+    @user.password_confirmation = 'Test1'
     @user.valid?
     expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
   end
