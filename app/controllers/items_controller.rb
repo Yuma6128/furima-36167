@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
     if @item.user == current_user
       render 'edit'
       else
-        redirect_to item_path
+        redirect_to root_path
       end
   end
 
