@@ -1,14 +1,12 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: :index
   def index
-  end
-
-  def new
-  @order_address = OrderAddress.new
+    @order_address = OrderAddress.new
+    @item = Item.find(params[:item_id])
   end
   
   def create
-    @order_address =OrderAddress.create(donation_params)
+    @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       @order_address.save
     redirect_to root_path
@@ -18,7 +16,7 @@ class OrdersController < ApplicationController
   end
 
   private
-  def donation_params
+  def order_params
     params.require(:order_address).permit(:postal_code,:item_prefecture_id,:city,:address,:phone_number,:building,:order_id,:item_id).merge(user_id:current_user.id)
   end
 end
