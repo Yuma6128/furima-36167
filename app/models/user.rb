@@ -8,4 +8,5 @@ class User < ApplicationRecord
   validates :last_name_kana, :first_name_kana, format: { with: /\A[ァ-ヶー－]+\z/ }
   validates :last_name, :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ }
   has_many :items
+  has_many :orders
 end
